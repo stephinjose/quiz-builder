@@ -4,3 +4,5 @@ server/api/bin
 server/database/database.sqlproj.user
 server/database/bin
 server/database/obj
+server/.vs/ProjectEvaluation
+server/.vs/server/DesignTimeBuild
