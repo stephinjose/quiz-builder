@@ -1,3 +1,6 @@
 server/.vs/server/v17/.suo
 server/api/obj
 server/api/bin
+server/database/database.sqlproj.user
+server/database/bin
+server/database/obj
