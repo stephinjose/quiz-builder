@@ -6,3 +6,5 @@ server/database/bin
 server/database/obj
 server/.vs/ProjectEvaluation
 server/.vs/server/DesignTimeBuild
+server/.vs/server/FileContentIndex
+server/api/api.csproj.user
