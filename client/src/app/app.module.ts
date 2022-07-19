@@ -8,12 +8,18 @@ import { AppComponent } from './app.component';
 import { AuthButtonComponent } from './components/auth-button/auth-button.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { QuizListComponent } from './components/quiz-list/quiz-list.component';
+import { QuizCreatorComponent } from './components/quiz-creator/quiz-creator.component';
+import { QuizChallengeComponent } from './components/quiz-challenge/quiz-challenge.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthButtonComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    QuizListComponent,
+    QuizCreatorComponent,
+    QuizChallengeComponent
   ],
   imports: [
     BrowserModule,
