@@ -4,6 +4,7 @@ import { AuthGuard } from '@auth0/auth0-angular';
 import { QuizChallengeComponent } from './components/quiz-challenge/quiz-challenge.component';
 import { QuizCreatorComponent } from './components/quiz-creator/quiz-creator.component';
 import { QuizListComponent } from './components/quiz-list/quiz-list.component';
+import { QuizTryComponent } from './components/quiz-try/quiz-try.component';
 
 const routes: Routes = [{
   path: '',
@@ -19,7 +20,11 @@ const routes: Routes = [{
 {
   path: 'challenge',
   component: QuizChallengeComponent,
-  pathMatch: 'prefix'
+  pathMatch: 'prefix',
+  children: [{
+    path: ':permalink',
+    component: QuizTryComponent
+  }]
 },
 {
   path: 'create',

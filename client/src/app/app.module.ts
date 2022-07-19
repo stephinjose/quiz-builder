@@ -2,7 +2,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
-import { MatButtonModule } from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthButtonComponent } from './components/auth-button/auth-button.component';
@@ -11,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { QuizListComponent } from './components/quiz-list/quiz-list.component';
 import { QuizCreatorComponent } from './components/quiz-creator/quiz-creator.component';
 import { QuizChallengeComponent } from './components/quiz-challenge/quiz-challenge.component';
+import { QuizTryComponent } from './components/quiz-try/quiz-try.component';
 
 @NgModule({
   declarations: [
@@ -19,13 +21,15 @@ import { QuizChallengeComponent } from './components/quiz-challenge/quiz-challen
     UserProfileComponent,
     QuizListComponent,
     QuizCreatorComponent,
-    QuizChallengeComponent
+    QuizChallengeComponent,
+    QuizTryComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     MatButtonModule,
+    MatIconModule,
     AuthModule.forRoot({
       domain: 'dev-7b0bndfn.us.auth0.com',
       clientId: 'Q0i1UUinMoWJkLH4g6JbUXkVs4G9Ay0I',

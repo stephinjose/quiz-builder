@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
@@ -8,9 +9,12 @@ import { AuthService } from '@auth0/auth0-angular';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor(public auth: AuthService) { }
+  constructor(public auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  onAddClick(): void {
+    this.router.navigate(['/create']);
+  }
 }
