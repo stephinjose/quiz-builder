@@ -1,3 +1,10 @@
-<app-auth-button></app-auth-button>
-<app-user-profile></app-user-profile>
-<button (click)="callApi()">Call Api</button>
+<!-- <button (click)="callApi()">Call Api</button> -->
+<div class="app-container">
+    <div class="app-toolbar">
+        <app-user-profile></app-user-profile>
+        <app-auth-button></app-auth-button>
+    </div>
+    <div class="app-scrollable-content">
+        <router-outlet></router-outlet>
+    </div>
+</div>
