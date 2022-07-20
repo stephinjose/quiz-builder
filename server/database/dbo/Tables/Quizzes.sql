@@ -8,3 +8,10 @@
     CONSTRAINT [FK_Quizzes_Users] FOREIGN KEY ([UserId]) REFERENCES [dbo].[Users] ([Id])
 );
 
+
+
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [IX_Quizzes_Permalink]
+    ON [dbo].[Quizzes]([Permalink] ASC);
+
