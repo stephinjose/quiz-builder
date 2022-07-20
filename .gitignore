@@ -8,3 +8,5 @@ server/.vs/ProjectEvaluation
 server/.vs/server/DesignTimeBuild
 server/.vs/server/FileContentIndex
 server/api/api.csproj.user
+server/Common/bin
+server/Common/obj

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Answer } from 'src/app/models/answer';
 import { Question } from 'src/app/models/question';
 import { Quiz } from 'src/app/models/quiz';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-quiz-creator',
@@ -10,7 +11,7 @@ import { Quiz } from 'src/app/models/quiz';
 })
 export class QuizCreatorComponent implements OnInit {
 
-  constructor() { }
+  constructor(private apiService: ApiService) { }
 
   quiz = { title: '', questions: [] } as Quiz;
 
@@ -41,5 +42,6 @@ export class QuizCreatorComponent implements OnInit {
 
   saveQuiz(): void {
     console.log(this.quiz);
+    this.apiService.post('/api/quiz/create', this.quiz).subscribe();
   }
 }
