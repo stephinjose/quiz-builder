@@ -52,6 +52,33 @@ namespace Common.Services
             }
         }
 
+        public async Task<Quiz> RetrieveQuiz(string permalink)
+        {
+            using (var conn = new SqlConnection(_configuration["AppSettings:DbConnectionString"]))
+            {
+                conn.Open();
+                var results = await conn.QueryMultipleAsync("sp_Quiz_Retrieve", new { permalink }, commandType: CommandType.StoredProcedure);
+                var quiz = await results.ReadSingleAsync<Quiz>();
+                var questions = await results.ReadAsync<Question>();
+                var answers = await results.ReadAsync<Answer>();
+                
+                foreach(var ansGroup in answers.GroupBy(ans => ans.questionId))
+                {
+                    var question = questions.Single(q => q.id == ansGroup.Key);
+                    question.answers = ansGroup.ToArray();
+                }
+
+                quiz.questions = questions.ToArray();
+
+                return quiz;
+            }
+        }
+
+        public async Task<TestResults> VerifyQuiz(Quiz quiz)
+        {
+
+        }
+
         public async Task<int> DeleteQuiz(User appUser, int quizId)
         {
             using (var conn = new SqlConnection(_configuration["AppSettings:DbConnectionString"]))

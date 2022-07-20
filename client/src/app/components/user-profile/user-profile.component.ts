@@ -14,11 +14,15 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onAddClick(): void {
-    this.router.navigate(['/create']);
+  onQuizClick(): void {
+    this.router.navigate(['/challenge']);
   }
 
-  onListClick(): void{
+  onListClick(): void {
     this.router.navigate(['/list']);
+  }
+
+  onAddClick(): void {
+    this.router.navigate(['/create']);
   }
 }

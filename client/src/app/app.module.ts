@@ -16,6 +16,7 @@ import { QuizCreatorComponent } from './components/quiz-creator/quiz-creator.com
 import { QuizChallengeComponent } from './components/quiz-challenge/quiz-challenge.component';
 import { QuizTryComponent } from './components/quiz-try/quiz-try.component';
 import { FormsModule } from '@angular/forms';
+import { QuizTemplateComponent } from './components/quiz-template/quiz-template.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FormsModule } from '@angular/forms';
     QuizListComponent,
     QuizCreatorComponent,
     QuizChallengeComponent,
-    QuizTryComponent
+    QuizTryComponent,
+    QuizTemplateComponent
   ],
   imports: [
     BrowserModule,

@@ -29,6 +29,18 @@ namespace api.Controllers
             return await _quizService.GetQuizzes(AppUser);
         }
 
+        [HttpGet("retrieve/{permalink}")]
+        public async Task<Quiz> RetrieveQuiz(string permalink)
+        {
+            return await _quizService.RetrieveQuiz(permalink);
+        }
+
+        [HttpPost("verify")]
+        public async Task<TestResults> VerifyQuiz(Quiz quiz)
+        {
+            return await _quizService.VerifyQuiz(quiz);
+        }
+
         [HttpDelete("{quizId}")]
         [Authorize]
         public async Task<int> GetQuizzes(int quizId)
