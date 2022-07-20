@@ -1,6 +1,8 @@
 .app-container {
     width: 100vw;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
 
     .app-toolbar {
         width: 100%;
@@ -12,5 +14,11 @@
         background-color: black;
         color: white;
         padding: 7px;
+    }
+
+    .app-scrollable-content {
+        padding: 10px 30px;
+        flex: 1;
+        overflow-y: auto;
     }
 }

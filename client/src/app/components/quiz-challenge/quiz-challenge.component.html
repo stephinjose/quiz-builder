@@ -1,2 +1,4 @@
-<p>quiz-challenge works!</p>
+Enter the permalink : <input type="text" matInput [(ngModel)]="permalinkText" class="permalink-text">
+<a mat-button mat-stroked-button color="primary" [disabled]="!permalinkText.length" (click)="fetchQuiz()">Go</a>
+<hr>
 <router-outlet></router-outlet>

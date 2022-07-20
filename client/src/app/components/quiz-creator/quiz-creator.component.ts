@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Answer } from 'src/app/models/answer';
+import { Question } from 'src/app/models/question';
+import { Quiz } from 'src/app/models/quiz';
 
 @Component({
   selector: 'app-quiz-creator',
@@ -9,7 +12,34 @@ export class QuizCreatorComponent implements OnInit {
 
   constructor() { }
 
+  quiz = { title: '', questions: [] } as Quiz;
+
   ngOnInit(): void {
   }
 
+  addQuestion(single: boolean) {
+    this.quiz.questions.push({ type: single ? 'S' : 'M', answers: [] as Answer[] } as Question)
+  }
+
+  addAnswer(question: Question) {
+    question.answers.push({ text: '', isCorrect: false });
+  }
+
+  onSelectionChange(question: Question, answer: Answer) {
+    if (question.type === 'S') {
+      question.answers.forEach(ans => {
+        if (ans !== answer) {
+          ans.isCorrect = false;
+        }
+      });
+    }
+  }
+
+  isValid(): boolean {
+    return true;
+  }
+
+  saveQuiz(): void {
+    console.log(this.quiz);
+  }
 }
