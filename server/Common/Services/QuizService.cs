@@ -1,19 +1,77 @@
 ﻿using Common.Interfaces;
 using Common.Models;
 using Dapper;
+using Microsoft.Extensions.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace Common.Services
 {
     public class QuizService : IQuizService
     {
-        public async Task<ValidationResults> CreateQuiz(Quiz quiz)
+        private readonly IConfiguration _configuration;
+        public QuizService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+        public async Task<ValidationResults> CreateQuiz(Quiz quiz, User appUser)
         {
             var validationResults = _validate(quiz);
             if (!validationResults.Success)
             {
                 return validationResults;
             }
+
+            var permalink = _generatePermalink();
+            var dt = constructQuestionsTable(quiz);
+            using (var conn = new SqlConnection(_configuration["AppSettings:DbConnectionString"]))
+            {
+                conn.Open();
+                await conn.ExecuteAsync("sp_Quiz_Create", new
+                {
+                    Auth0Id = appUser.Auth0Id,
+                    Email = appUser.Email,
+                    QuizTitle = quiz.title,
+                    Permalink = permalink,
+                    Questions = dt.AsTableValuedParameter("dbo.udt_New_Quiz_Questions")
+                },
+                    commandType: CommandType.StoredProcedure);
+            }
+
+            validationResults.PermaLink = permalink;
+
             return validationResults;
+        }
+
+        private static Random random = new Random();
+        private static string _generatePermalink()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, 6)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        private DataTable constructQuestionsTable(Quiz quiz)
+        {
+            var tableQuestions = new DataTable();
+            tableQuestions.Columns.Add("QuestionSortOrder", typeof(int));
+            tableQuestions.Columns.Add("QuestionText", typeof(string));
+            tableQuestions.Columns.Add("QuestionType", typeof(char));
+            tableQuestions.Columns.Add("AnswerSortOrder", typeof(int));
+            tableQuestions.Columns.Add("AnswerText", typeof(string));
+            tableQuestions.Columns.Add("IsCorrect", typeof(bool));
+            int questionSortOrder = 1;
+            foreach (var question in quiz.questions)
+            {
+                int answerSortOrder = 1;
+                foreach (var answer in question.answers)
+                {
+                    tableQuestions.Rows.Add(questionSortOrder, question.text, question.type, answerSortOrder++, answer.text, answer.isCorrect);
+                }
+                questionSortOrder++;
+            }
+
+            return tableQuestions;
         }
 
         private ValidationResults _validate(Quiz quiz)

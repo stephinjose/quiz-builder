@@ -12,7 +12,7 @@ namespace api.Controllers
         [Authorize]
         public dynamic Test()
         {
-            return new { UserId, Email };
+            return new { AppUser.Auth0Id, AppUser.Email };
         }
     }
 }

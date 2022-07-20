@@ -4,6 +4,6 @@ namespace Common.Interfaces
 {
     public interface IQuizService
     {
-        public Task<ValidationResults> CreateQuiz(Quiz quiz);
+        public Task<ValidationResults> CreateQuiz(Quiz quiz, User appUser);
     }
 }

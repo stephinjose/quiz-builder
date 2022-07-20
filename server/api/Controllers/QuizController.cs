@@ -19,7 +19,7 @@ namespace api.Controllers
         [Authorize]
         public async Task<ValidationResults> CreateQuiz(Quiz quiz)
         {
-            return await _quizService.CreateQuiz(quiz);
+            return await _quizService.CreateQuiz(quiz, AppUser);
         }
     }
 }

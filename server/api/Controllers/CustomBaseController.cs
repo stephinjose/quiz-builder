@@ -1,25 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Common.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace api.Controllers
 {
     public class CustomBaseController : ControllerBase
     {
-        public string? UserId
+        public User AppUser
         {
             get
             {
                 var userIdClaim = User?.FindFirst(ClaimTypes.NameIdentifier);
-                return userIdClaim?.Value;
-            }
-        }
-
-        public string? Email
-        {
-            get
-            {
                 var emailClaim = User?.FindFirst("https://example.com/email");
-                return emailClaim?.Value;
+                if(userIdClaim != null && emailClaim != null)
+                {
+                    return new User { Auth0Id = userIdClaim.Value, Email = emailClaim.Value };
+                }
+                return null;
             }
         }
     }
