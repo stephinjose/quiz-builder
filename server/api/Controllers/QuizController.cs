@@ -28,5 +28,12 @@ namespace api.Controllers
         {
             return await _quizService.GetQuizzes(AppUser);
         }
+
+        [HttpDelete("{quizId}")]
+        [Authorize]
+        public async Task<int> GetQuizzes(int quizId)
+        {
+            return await _quizService.DeleteQuiz(AppUser, quizId);
+        }
     }
 }

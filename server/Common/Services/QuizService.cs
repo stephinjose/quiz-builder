@@ -52,6 +52,15 @@ namespace Common.Services
             }
         }
 
+        public async Task<int> DeleteQuiz(User appUser, int quizId)
+        {
+            using (var conn = new SqlConnection(_configuration["AppSettings:DbConnectionString"]))
+            {
+                conn.Open();
+                return await conn.ExecuteAsync("sp_Quizzes_Delete", new { Auth0Id = appUser.Auth0Id, quizId }, commandType: CommandType.StoredProcedure);
+            }
+        }
+
         private static Random random = new Random();
         private static string _generatePermalink()
         {

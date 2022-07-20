@@ -13,7 +13,7 @@
             <div class="column1">{{quiz.title}}</div>
             <div class="column2">{{quiz.permalink}}</div>
             <div class="column3">
-                <button mat-button mat-raised-button>
+                <button mat-button mat-raised-button (click)="deleteQuiz(quiz)">
                     <mat-icon>delete</mat-icon>
                 </button>
             </div>

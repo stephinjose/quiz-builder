@@ -75,6 +75,7 @@
     <Build Include="dbo\User Defined Types\udt_New_Quiz_Questions.sql" />
     <Build Include="dbo\Stored Procedures\sp_Quiz_Create.sql" />
     <Build Include="dbo\Stored Procedures\sp_Quizzes_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Quizzes_Delete.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />

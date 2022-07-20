@@ -36,12 +36,11 @@ BEGIN
 		INNER JOIN @Questions QP ON QT.SortOrder = QP.QuestionSortOrder
 		WHERE QT.QuizId = @QuizId
 
-		COMMIT TRANSACTION;
+	COMMIT TRANSACTION;
 	END TRY
 	BEGIN CATCH
 		DECLARE @error int,
-            @message varchar(4000),
-            @xstate int;
+            @message varchar(4000);
 
 		SELECT
 		  @error = ERROR_NUMBER(),

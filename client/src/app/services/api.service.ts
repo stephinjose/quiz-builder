@@ -16,4 +16,8 @@ export class ApiService {
   public post<T>(url: string, body: any): Observable<T> {
     return this.http.post<T>(url, body);
   }
+
+  public delete(url: string): Observable<any> {
+    return this.http.delete(url);
+  }
 }
