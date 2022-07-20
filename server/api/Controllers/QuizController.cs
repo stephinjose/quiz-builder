@@ -21,5 +21,12 @@ namespace api.Controllers
         {
             return await _quizService.CreateQuiz(quiz, AppUser);
         }
+
+        [HttpGet("list")]
+        [Authorize]
+        public async Task<IEnumerable<Quiz>> GetQuizzes()
+        {
+            return await _quizService.GetQuizzes(AppUser);
+        }
     }
 }

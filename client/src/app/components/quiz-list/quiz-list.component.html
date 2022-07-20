@@ -1,1 +1,25 @@
-<p>quiz-list works!</p>
+<h2>List of quizzes created</h2>
+<hr>
+<div *ngIf="!quizzes">Loading...</div>
+<div *ngIf="quizzes" class="quiz-list-container">
+    <ng-container *ngIf="quizzes.length">
+        <div class="row">
+            <h3 class="column1">Quiz title</h3>
+            <h3 class="column2">Quiz permalink</h3>
+            <h3 class="column3">Actions</h3>
+        </div>
+        <hr>
+        <div *ngFor="let quiz of quizzes" class="row">
+            <div class="column1">{{quiz.title}}</div>
+            <div class="column2">{{quiz.permalink}}</div>
+            <div class="column3">
+                <button mat-button mat-raised-button>
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="!quizzes.length">
+        You don't have any quizzes created
+    </ng-container>
+</div>

@@ -1,4 +1,7 @@
 <div class="user-profile-container" *ngIf="auth.user$ | async as user">
+    <a mat-button mat-stroked-button (click)="onListClick()">
+        <mat-icon>view_list</mat-icon>
+    </a>
     <a mat-button mat-stroked-button (click)="onAddClick()">
         <mat-icon>add</mat-icon>
     </a>

@@ -43,6 +43,15 @@ namespace Common.Services
             return validationResults;
         }
 
+        public async Task<IEnumerable<Quiz>> GetQuizzes(User appUser)
+        {
+            using (var conn = new SqlConnection(_configuration["AppSettings:DbConnectionString"]))
+            {
+                conn.Open();
+                return await conn.QueryAsync<Quiz>("sp_Quizzes_GetAll", new { Auth0Id = appUser.Auth0Id }, commandType: CommandType.StoredProcedure);
+            }
+        }
+
         private static Random random = new Random();
         private static string _generatePermalink()
         {

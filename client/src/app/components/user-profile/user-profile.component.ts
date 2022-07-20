@@ -17,4 +17,8 @@ export class UserProfileComponent implements OnInit {
   onAddClick(): void {
     this.router.navigate(['/create']);
   }
+
+  onListClick(): void{
+    this.router.navigate(['/list']);
+  }
 }

@@ -6,36 +6,37 @@ import { QuizCreatorComponent } from './components/quiz-creator/quiz-creator.com
 import { QuizListComponent } from './components/quiz-list/quiz-list.component';
 import { QuizTryComponent } from './components/quiz-try/quiz-try.component';
 
-const routes: Routes = [{
-  path: '',
-  component: QuizListComponent,
-  canActivate: [AuthGuard],
-  pathMatch: 'full'
-},
-{
-  path: '',
-  redirectTo: 'challenge',
-  pathMatch: 'full'
-},
-{
-  path: 'challenge',
-  component: QuizChallengeComponent,
-  pathMatch: 'prefix',
-  children: [{
-    path: ':permalink',
-    component: QuizTryComponent
-  }]
-},
-{
-  path: 'create',
-  component: QuizCreatorComponent,
-  canActivate: [AuthGuard],
-  pathMatch: 'full'
-},
-{
-  path: '**',
-  redirectTo: ''
-}];
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'challenge',
+    pathMatch: 'full'
+  },
+  {
+    path: 'list',
+    component: QuizListComponent,
+    canActivate: [AuthGuard],
+    pathMatch: 'full'
+  },
+  {
+    path: 'challenge',
+    component: QuizChallengeComponent,
+    pathMatch: 'prefix',
+    children: [{
+      path: ':permalink',
+      component: QuizTryComponent
+    }]
+  },
+  {
+    path: 'create',
+    component: QuizCreatorComponent,
+    canActivate: [AuthGuard],
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: ''
+  }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

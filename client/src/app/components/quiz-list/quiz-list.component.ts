@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Quiz } from 'src/app/models/quiz';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-quiz-list',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuizListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private apiService: ApiService) { }
+
+  quizzes: Quiz[] | null = null;
 
   ngOnInit(): void {
+      this.apiService.get<Quiz[]>('/api/quiz/list').subscribe((res) => this.quizzes = res);
   }
 
 }

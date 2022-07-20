@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Answer } from 'src/app/models/answer';
 import { Question } from 'src/app/models/question';
 import { Quiz } from 'src/app/models/quiz';
@@ -12,9 +13,9 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class QuizCreatorComponent implements OnInit {
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private router: Router) { }
 
-  quiz = { title: '', questions: [] } as Quiz;
+  quiz = { title: '', questions: [] as Question[] } as Quiz;
 
   ngOnInit(): void {
   }
@@ -39,7 +40,11 @@ export class QuizCreatorComponent implements OnInit {
 
   saveQuiz(): void {
     console.log(this.quiz);
-    this.apiService.post('/api/quiz/create', this.quiz).subscribe();
+    this.apiService.post('/api/quiz/create', this.quiz).subscribe(
+      () => {
+        this.router.navigateByUrl('/list');
+      }
+    );
   }
 
   isValid(): boolean {

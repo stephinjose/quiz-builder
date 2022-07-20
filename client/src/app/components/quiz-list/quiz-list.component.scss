@@ -1,0 +1,28 @@
+.quiz-list-container {
+    display: flex;
+    flex-direction: column;
+
+    .row {
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+        align-items: center;
+        margin-bottom: 10px;
+
+        h3 {
+            font-weight: bold;
+        }
+
+        .column1 {
+            flex: 1;
+        }
+
+        .column2 {
+            width: 200px;
+        }
+
+        .column3 {
+            width: 100px;
+        }
+    }
+}
