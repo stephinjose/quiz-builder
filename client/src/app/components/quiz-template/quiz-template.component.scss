@@ -7,15 +7,34 @@
 }
 
 .question-list {
-    .quetion-container {
-        padding: 20px;
+    .question-container {
+        padding: 10px 20px;
 
         &:nth-child(odd) {
-            background-color: antiquewhite;
+            background-color: rgb(250, 235, 215);
+
+            .answer-container.try-mode:hover {
+                cursor: pointer;
+                background-color: rgb(255, 210, 151);
+            }
         }
 
         &:nth-child(even) {
             background-color: rgb(196, 220, 245);
+
+            .answer-container.try-mode:hover {
+                cursor: pointer;
+                background-color: rgb(106, 177, 253);
+            }
+        }
+
+        .question-title-container {
+            display: flex;
+            flex-direction: row;
+
+            h2 {
+                flex: 1
+            }
         }
 
         .question-text-container {
@@ -30,14 +49,6 @@
             .answer-title-container {
                 display: flex;
                 flex-direction: row;
-
-                .answer-title {
-                    flex: 1;
-                }
-
-                .is-correct-title {
-                    width: 250px;
-                }
             }
 
             .answer-list {
@@ -45,24 +56,39 @@
                     margin: 5px 0;
                     display: flex;
                     flex-direction: row;
+                    align-items: center;
+                }
+            }
 
-                    .answer-text-container {
-                        flex: 1;
-                        padding-right: 20px;
+            .column1 {
+                flex: 1;
+                padding-right: 20px;
 
-                        input {
-                            width: 100%;
-                        }
-                    }
+                input {
+                    width: 100%;
+                }
+            }
 
-                    .is-correct {
-                        width: 250px;
-                    }
+            .column2 {
+                width: 250px;
+            }
+
+            .column3 {
+                width: 40px;
+            }
+
+            a.column3 {
+                text-align: center;
+                vertical-align: middle;
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: bisque;
                 }
             }
 
             .add-answer-button {
-                margin-top: 20px;
+                margin-top: 5px;
             }
         }
     }

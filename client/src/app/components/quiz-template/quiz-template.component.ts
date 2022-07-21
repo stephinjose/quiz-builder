@@ -54,6 +54,14 @@ export class QuizTemplateComponent implements OnInit, OnDestroy {
     question.answers.push({ text: '', isCorrect: false });
   }
 
+  removeQuestion(question: Question) {
+    this.quiz?.questions.splice(this.quiz.questions.indexOf(question), 1);
+  }
+
+  removeAnswer(question: Question, answer: Answer) {
+    question.answers.splice(question.answers.indexOf(answer), 1);
+  }
+
   onSelectionChange(question: Question, answer: Answer) {
     if (question.type === 'S') {
       question.answers.forEach(ans => {

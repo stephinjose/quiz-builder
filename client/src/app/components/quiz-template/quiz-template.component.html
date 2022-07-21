@@ -6,32 +6,56 @@
     </div>
     <h2 *ngIf="Mode === 'TRY'">{{quiz.title}}</h2>
     <div *ngIf="quiz.questions && quiz.questions.length" class="question-list">
-        <div *ngFor="let question of quiz.questions;let index = index;" class="quetion-container">
-            <h2>{{index + 1}}</h2>
+        <div *ngFor="let question of quiz.questions;let qnIndex = index;" class="question-container">
+            <div class="question-title-container">
+                <h2>{{qnIndex + 1}}</h2>
+                <button *ngIf="Mode === 'CREATE'" mat-icon-button (click)="removeQuestion(question)">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
             <div class="question-text-container">
                 <ng-container *ngIf="Mode === 'CREATE'">
-                    Question* : <input type="text" class="question-text" matInput [(ngModel)]="question.text">
+                    Question* : <input type="text" class="question-text" matInput [(ngModel)]="question.text"
+                        id="question-text-{{qnIndex}}">
                 </ng-container>
                 <h3 *ngIf="Mode === 'TRY'">{{question.text}}</h3>
             </div>
             <div class="answer-list-container">
                 <div class="answer-title-container">
-                    <div class="answer-title">Answers* : </div>
-                    <div class="is-correct-title">
+                    <div class="answer-title column1">Answers* : </div>
+                    <div class="is-correct-title column2">
                         Is correct : {{question.type == 'S'? '(Select 1)':'(Select 1 or more)'}}
                     </div>
+                    <span class="column3"></span>
                 </div>
                 <div class="answer-list">
-                    <div *ngFor="let answer of question.answers" class="answer-container">
-                        <div class="answer-text-container">
-                            <input *ngIf="Mode === 'CREATE'" type="text" matInput [(ngModel)]="answer.text">
-                            <span *ngIf="Mode === 'TRY'">{{answer.text}}</span>
+                    <ng-container *ngIf="Mode === 'TRY'">
+                        <label *ngFor="let answer of question.answers; let ansIndex = index;"
+                            class="answer-container try-mode" for="chk-is-correct-{{qnIndex}}-{{ansIndex}}">
+                            <div class="answer-text-container column1">
+                                <span *ngIf="Mode === 'TRY'">{{answer.text}}</span>
+                            </div>
+                            <div class="column2">
+                                <input type="checkbox" [(ngModel)]="answer.isCorrect"
+                                    (change)="onSelectionChange(question, answer)"
+                                    id="chk-is-correct-{{qnIndex}}-{{ansIndex}}">
+                            </div>
+                            <span class="column3"></span>
+                        </label>
+                    </ng-container>
+                    <ng-container *ngIf="Mode === 'CREATE'">
+                        <div *ngFor="let answer of question.answers; let ansIndex = index;" class="answer-container">
+                            <div class="answer-text-container column1">
+                                <input type="text" matInput [(ngModel)]="answer.text" id="answer-text-{{ansIndex}}">
+                            </div>
+                            <div class="column2">
+                                <input type="checkbox" [(ngModel)]="answer.isCorrect"
+                                    (change)="onSelectionChange(question, answer)"
+                                    id="chk-is-correct-{{qnIndex}}-{{ansIndex}}">
+                            </div>
+                            <a class="column3" (click)="removeAnswer(question, answer)" > X </a>
                         </div>
-                        <div class="is-correct">
-                            <input type="checkbox" [(ngModel)]="answer.isCorrect"
-                                (change)="onSelectionChange(question, answer)">
-                        </div>
-                    </div>
+                    </ng-container>
                 </div>
                 <button *ngIf="Mode === 'CREATE'" class="add-answer-button" mat-button mat-raised-button
                     [disabled]="question.answers.length >= 5" (click)="addAnswer(question)">
