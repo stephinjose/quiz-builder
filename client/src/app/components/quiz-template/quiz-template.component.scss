@@ -68,12 +68,16 @@
     }
 }
 
-.add-question-button{
+.add-question-button {
     margin: 10px;
 }
 
-.save-button-container{
+.save-button-container {
     display: flex;
     justify-content: flex-end;
     margin: 30px 20px 0 0;
+}
+
+.spinner-container {
+    max-height: 50px;
 }

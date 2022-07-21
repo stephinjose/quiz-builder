@@ -1,12 +1,13 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { catchError, EMPTY, Subscription, switchMap } from 'rxjs';
+import { Component, Input, OnDestroy, OnInit, TemplateRef } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, EMPTY, forkJoin, Subscription, switchMap, tap } from 'rxjs';
 import { Answer } from 'src/app/models/answer';
 import { ExamResults } from 'src/app/models/exam-result';
 import { Question } from 'src/app/models/question';
 import { Quiz } from 'src/app/models/quiz';
 import { ValidationResults } from 'src/app/models/validation-results';
 import { ApiService } from 'src/app/services/api.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-quiz-template',
@@ -17,7 +18,8 @@ export class QuizTemplateComponent implements OnInit, OnDestroy {
 
   constructor(private apiService: ApiService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private dialog: MatDialog) { }
 
   @Input()
   Mode: 'CREATE' | 'TRY' = 'CREATE';
@@ -71,12 +73,14 @@ export class QuizTemplateComponent implements OnInit, OnDestroy {
     );
   }
 
-  viewResults(): void {
-    this.apiService.post<ExamResults>('/api/quiz/verify', this.quiz).subscribe(
-      (val) => {
-        this.results = val;
-      }
-    );
+  viewResults(resultTemplate: TemplateRef<any>): void {
+    var dialogRef = this.dialog.open(resultTemplate);
+    forkJoin([dialogRef.afterClosed(),
+    this.apiService.post<ExamResults>('/api/quiz/verify', this.quiz).pipe(tap((val) => {
+      this.results = val;
+    }))]).subscribe(() => {
+      this.results = null;
+    });
   }
 
   isValid(): boolean {

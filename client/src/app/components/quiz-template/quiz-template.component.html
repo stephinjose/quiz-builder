@@ -59,11 +59,25 @@
             (click)="saveQuiz()">
             <mat-icon>save</mat-icon>
         </button>
-        <button *ngIf="Mode === 'TRY'" mat-button mat-raised-button color="primary" (click)="viewResults()">
+        <button *ngIf="Mode === 'TRY'" mat-button mat-raised-button color="primary"
+            (click)="viewResults(resultTemplate)">
             <mat-icon>check_small</mat-icon>
         </button>
     </div>
-    <div *ngIf="results">
-        {{ 'You got ' + results.rightAnswersCount + ' questions right out of ' + results.totalQuestionCount }}
-    </div>
 </ng-container>
+<ng-template #resultTemplate>
+    <div>
+        <h1 mat-dialog-title>Test Results</h1>
+        <div mat-dialog-content>
+            <ng-container *ngIf="results">
+                Your Score : <strong>{{results.rightAnswersCount + '/' + results.totalQuestionCount}}</strong>
+            </ng-container>
+            <div *ngIf="!results" class="spinner-container">
+                <mat-spinner *ngIf="!results"></mat-spinner>
+            </div>
+        </div>
+        <div mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close>Close</button>
+        </div>
+    </div>
+</ng-template>

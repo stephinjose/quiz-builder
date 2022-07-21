@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthButtonComponent } from './components/auth-button/auth-button.component';
@@ -17,6 +18,7 @@ import { QuizChallengeComponent } from './components/quiz-challenge/quiz-challen
 import { QuizTryComponent } from './components/quiz-try/quiz-try.component';
 import { FormsModule } from '@angular/forms';
 import { QuizTemplateComponent } from './components/quiz-template/quiz-template.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { QuizTemplateComponent } from './components/quiz-template/quiz-template.
     MatIconModule,
     MatInputModule,
     MatMenuModule,
+    MatDialogModule,
+    MatProgressSpinnerModule,
     AuthModule.forRoot({
       domain: 'dev-7b0bndfn.us.auth0.com',
       clientId: 'Q0i1UUinMoWJkLH4g6JbUXkVs4G9Ay0I',
