@@ -61,8 +61,8 @@ namespace Common.Services
                 var quiz = await results.ReadSingleAsync<Quiz>();
                 var questions = await results.ReadAsync<Question>();
                 var answers = await results.ReadAsync<Answer>();
-                
-                foreach(var ansGroup in answers.GroupBy(ans => ans.questionId))
+
+                foreach (var ansGroup in answers.GroupBy(ans => ans.questionId))
                 {
                     var question = questions.Single(q => q.id == ansGroup.Key);
                     question.answers = ansGroup.ToArray();
@@ -76,7 +76,17 @@ namespace Common.Services
 
         public async Task<TestResults> VerifyQuiz(Quiz quiz)
         {
-
+            var dt = constructAnswerSheetTable(quiz);
+            using (var conn = new SqlConnection(_configuration["AppSettings:DbConnectionString"]))
+            {
+                conn.Open();
+                return await conn.QuerySingleAsync<TestResults>("sp_Evaluate_Test", new
+                {
+                    QuizId = quiz.id,
+                    AnswerSheet = dt.AsTableValuedParameter("dbo.udt_AnswerSheet")
+                },
+                    commandType: CommandType.StoredProcedure);
+            }
         }
 
         public async Task<int> DeleteQuiz(User appUser, int quizId)
@@ -117,6 +127,22 @@ namespace Common.Services
             }
 
             return tableQuestions;
+        }
+
+        private DataTable constructAnswerSheetTable(Quiz quiz)
+        {
+            var tableAnswerSheet = new DataTable();
+            tableAnswerSheet.Columns.Add("AnswerId", typeof(int));
+            tableAnswerSheet.Columns.Add("MarkedCorrect", typeof(bool));
+            foreach (var question in quiz.questions)
+            {
+                foreach (var answer in question.answers)
+                {
+                    tableAnswerSheet.Rows.Add(answer.id, answer.isCorrect);
+                }
+            }
+
+            return tableAnswerSheet;
         }
 
         private ValidationResults _validate(Quiz quiz)

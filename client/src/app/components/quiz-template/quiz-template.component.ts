@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { catchError, EMPTY, Subscription, switchMap } from 'rxjs';
 import { Answer } from 'src/app/models/answer';
+import { ExamResults } from 'src/app/models/exam-result';
 import { Question } from 'src/app/models/question';
 import { Quiz } from 'src/app/models/quiz';
 import { ValidationResults } from 'src/app/models/validation-results';
@@ -22,6 +23,7 @@ export class QuizTemplateComponent implements OnInit, OnDestroy {
   Mode: 'CREATE' | 'TRY' = 'CREATE';
 
   quiz: Quiz | null = null;
+  results: ExamResults | null = null;
 
   subs: Subscription[] = [];
 
@@ -70,7 +72,11 @@ export class QuizTemplateComponent implements OnInit, OnDestroy {
   }
 
   viewResults(): void {
-    this.apiService.post('/api/quiz/verify', this.quiz).subscribe();
+    this.apiService.post<ExamResults>('/api/quiz/verify', this.quiz).subscribe(
+      (val) => {
+        this.results = val;
+      }
+    );
   }
 
   isValid(): boolean {

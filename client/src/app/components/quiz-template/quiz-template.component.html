@@ -63,4 +63,7 @@
             <mat-icon>check_small</mat-icon>
         </button>
     </div>
+    <div *ngIf="results">
+        {{ 'You got ' + results.rightAnswersCount + ' questions right out of ' + results.totalQuestionCount }}
+    </div>
 </ng-container>

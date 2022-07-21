@@ -2,12 +2,7 @@
 {
     public class TestResults
     {
-        public QuestionResult[] results { get; set; }
-    }
-
-    public class QuestionResult
-    {
-        public int Id { get; set; }
-        public bool IsRight { get; set; }
+        public int totalQuestionCount { get; set; }
+        public int rightAnswersCount { get; set; }
     }
 }
