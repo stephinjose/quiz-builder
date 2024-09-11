@@ -10,3 +10,6 @@ server/.vs/server/FileContentIndex
 server/api/api.csproj.user
 server/Common/bin
 server/Common/obj
+/server/.vs/server/v17
+/server/DataAccess/bin/Debug/net8.0
+/server/DataAccess/obj
